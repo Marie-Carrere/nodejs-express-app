@@ -1,4 +1,19 @@
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+
+//Connect to the database
+
+
+//Create a schema (blueprint)
+var todoSchema = new mongoose.Schema({
+    item : String
+});
+
+var Todo = mongoose.model('Todo', todoSchema);
+var itemOne = Todo({item: 'getting ready'}).save(function(err) {
+    if (err) throw err;
+    console.log('item saved');
+});
 
 var data = [{item: 'reading'}, {item: 'running errands'}, {item: 'learning Korean'}];
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -19,8 +34,6 @@ module.exports = function(app) {
             return todo.item.replace(/ /g, '-') !== req.params.item;
         });
         res.json(data);
-
-
     });
 
 };
