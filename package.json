@@ -1,0 +1,24 @@
+{
+  "name": "nodejs-express-todo-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Marie-Carrere/nodejs-express-app.git"
+  },
+  "author": "Marie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Marie-Carrere/nodejs-express-app/issues"
+  },
+  "homepage": "https://github.com/Marie-Carrere/nodejs-express-app#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4"
+  }
+}

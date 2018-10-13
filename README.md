@@ -1,3 +1,3 @@
-# Node.js & Express.js TO-DO App
+# Node & Express To-Do App
 
 
