@@ -10,30 +10,33 @@ var todoSchema = new mongoose.Schema({
 });
 
 var Todo = mongoose.model('Todo', todoSchema);
-var itemOne = Todo({item: 'getting ready'}).save(function(err) {
-    if (err) throw err;
-    console.log('item saved');
-});
 
-var data = [{item: 'reading'}, {item: 'running errands'}, {item: 'learning Korean'}];
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
  
 module.exports = function(app) {
 
+// Get data from mongoDB and pass it to the view
     app.get('/todo', function(req, res) {
-        res.render('todo', {todos: data});
+        Todo.find({}, function(err, data) {
+            if (err) throw err;
+            res.render('todo', {todos: data});
+        });  
     });
 
+// Get data from the view and add it to mongoDB
     app.post('/todo', urlencodedParser, function(req, res) {
-        data.push(req.body);
-        res.json(data);
+        var newTodo = Todo(req.body).save(function(err, data) {
+            if (err) throw err;
+            res.json(data);
+        });
     });
 
+// Delete the requested item from mongoDB
     app.delete('/todo/:item', function(req, res) {
-        data = data.filter(function(todo) {
-            return todo.item.replace(/ /g, '-') !== req.params.item;
-        });
-        res.json(data);
+        Todo.find({item: req.params.item.replace(/\-/g, " ")}).remove(function(err, data){
+            if (err) throw err;
+            res.json(data);
+        });  
     });
 
 };
